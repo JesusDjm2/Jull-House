@@ -40,7 +40,7 @@
                                 <span class="fw-bold text-success">${{ number_format($ambiente->precio, 2) }}</span>
                             </div>
                             <p class="card-text">{{ $ambiente->descripcion }}</p>
-                            <a href="{{ route('ambientes.show', $ambiente) }}" class="btn btn-primary btn-sm">Ver más</a>
+                            <a href="{{ route('ambiente.ver', $ambiente) }}" class="btn btn-primary btn-sm">Ver más</a>
                         </div>
                     </div>
                 </div>

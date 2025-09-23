@@ -11,12 +11,14 @@ class RoomController extends Controller
     public function index()
     {
         $rooms = Room::all();
+
         return view('habitaciones.index', compact('rooms'));
     }
 
     public function mostrar()
     {
         $ambientes = Room::all();
+
         return view('welcome', compact('ambientes'));
     }
 
@@ -66,6 +68,12 @@ class RoomController extends Controller
     public function show(Room $ambiente)
     {
         return view('habitaciones.show', compact('ambiente'));
+    }
+
+    public function ver($id)
+    {
+        $ambiente = Room::with('images')->findOrFail($id);
+        return view('habitaciones.mostrar', compact('ambiente'));
     }
 
     public function edit(Room $ambiente)

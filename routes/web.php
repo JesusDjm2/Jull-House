@@ -24,6 +24,19 @@ Route::middleware('auth')->group(function () {
     });
 });
 
+Route::get('/ambientes/{ambiente}', [RoomController::class, 'ver'])->name('ambiente.ver');
+
 Route::get('/dashboard', function () { });
+
+
+/* Route::get('/crear-roles', function () {
+    $roles = ['admin', 'cliente', 'asistente'];
+
+    foreach ($roles as $rol) {
+        Role::firstOrCreate(['name' => $rol]);
+    }
+
+    return 'Roles creados correctamente ✅';
+}); */
 
 require __DIR__ . '/auth.php';
