@@ -125,7 +125,7 @@
                                 @endif
 
                                 <div class="card-body p-3">
-                                    <h6 class="card-title mb-2 text-primary">
+                                    <h6 class="card-title mb-2">
                                         <i class="fa-solid fa-door-open me-1"></i> {{ $otro->nombre }}
                                     </h6>
                                     <p class="card-text small mb-2 text-muted">

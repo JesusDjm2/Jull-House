@@ -81,6 +81,19 @@
     opacity: 1;
   }
 }
+.card-body .card-title {
+  position: relative;
+  display: inline-block;
+}
+.card-body .card-title::after {
+  content: "";
+  display: block;
+  width: 40px;
+  height: 3px;
+  background-color: #ebd36c;
+  margin-top: 4px;
+}
+
 .nav-link {
   display: inline-flex;
   align-items: center;

@@ -100,6 +100,23 @@ $colorPrincipal: #ebd36c;
     }
 }
 
+.card-body {
+    .card-title {
+        position: relative;
+        display: inline-block; // para que la línea respete el ancho del texto
+
+        &::after {
+            content: "";
+            display: block;
+            width: 40px;
+            height: 3px;
+            background-color: $colorPrincipal; // usa tu variable de color
+            margin-top: 4px; // espacio entre texto y línea
+        }
+    }
+}
+
+
 // Tus estilos de nav-link
 .nav-link {
     display: inline-flex;
@@ -193,9 +210,12 @@ $colorPrincipal: #ebd36c;
             padding: 0 8px;
         }
     }
-    ul{
-        li{
-            i{color: $colorPrincipal;}
+
+    ul {
+        li {
+            i {
+                color: $colorPrincipal;
+            }
         }
     }
 }
@@ -212,13 +232,15 @@ $colorPrincipal: #ebd36c;
         color: #fff !important;
         font-size: 12px;
     }
-    button{
+
+    button {
         background: $colorPrincipal !important;
         color: #000 !important;
         border-color: $colorPrincipal !important;
         transition: all 0.3s ease;
         border-radius: 4px;
-        &:hover{
+
+        &:hover {
             background: #fff !important;
             color: #aa994b !important;
             border-color: $colorPrincipal !important;
