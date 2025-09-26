@@ -24,7 +24,7 @@ Route::middleware('auth')->group(function () {
     });
 });
 
-Route::get('/ambientes/{ambiente}', [RoomController::class, 'ver'])->name('ambiente.ver');
+Route::get('/ambientes/{ambiente}/ver-ambiente', [RoomController::class, 'ver'])->name('ambiente.ver');
 
 Route::get('/dashboard', function () { });
 

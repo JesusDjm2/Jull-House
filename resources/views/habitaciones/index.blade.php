@@ -40,11 +40,11 @@
                                 <td>{{ $ambiente->capacidad }}</td>
                                 <td>
                                     <a href="{{ route('ambientes.show', $ambiente) }}"
-                                        class="btn btn-sm btn-info text-white">
+                                        class="btn btn-sm btn-info">
                                         Ver
                                     </a>
                                     <a href="{{ route('ambientes.edit', $ambiente) }}"
-                                        class="btn btn-sm btn-warning text-white">
+                                        class="btn btn-sm btn-warning">
                                         Editar
                                     </a>
                                     <form action="{{ route('ambientes.destroy', $ambiente) }}" method="POST"

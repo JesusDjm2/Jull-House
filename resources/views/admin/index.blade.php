@@ -2,10 +2,10 @@
     <x-slot name="header">
         <div class="d-flex justify-content-between align-items-center">
             <h2 class="h4 text-dark fw-semibold mb-0">
-                Lista de Administradores
+                Lista de Usuarios
             </h2>
             <a href="{{ route('admin.create') }}" class="btn btn-primary btn-sm">
-                Nuevo Administrador
+                Nuevo Usuario
             </a>
         </div>
     </x-slot>
@@ -41,7 +41,6 @@
                                 @endforeach
                             </td>
                             <td>
-
                                 <a href="{{ route('admin.edit', $admin) }}" class="btn btn-info btn-sm text-white"> Editar</a>
                                 <form action="{{ route('admin.destroy', $admin) }}" method="POST" class="d-inline">
                                     @csrf

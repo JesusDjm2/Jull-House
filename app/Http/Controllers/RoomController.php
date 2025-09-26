@@ -29,7 +29,6 @@ class RoomController extends Controller
 
     public function store(Request $request)
     {
-        // 🔹 Validación
         $request->validate([
             'nombre' => 'required|string|max:255',
             'tipo' => 'nullable|string|max:100',
@@ -38,8 +37,6 @@ class RoomController extends Controller
             'descripcion' => 'nullable|string',
             'imagenes.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
         ]);
-
-        // 🔹 Crear el ambiente
         $room = Room::create($request->only([
             'nombre',
             'tipo',
@@ -73,7 +70,8 @@ class RoomController extends Controller
     public function ver($id)
     {
         $ambiente = Room::with('images')->findOrFail($id);
-        return view('habitaciones.mostrar', compact('ambiente'));
+        $otrosAmbientes = Room::where('id', '!=', $ambiente->id)->get();
+        return view('habitaciones.mostrar', compact('ambiente', 'otrosAmbientes'));
     }
 
     public function edit(Room $ambiente)
