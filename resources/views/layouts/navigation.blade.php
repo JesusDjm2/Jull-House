@@ -16,13 +16,13 @@
             <ul class="navbar-nav me-auto mb-2 mb-lg-0">
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('ambientes.*') ? 'active' : '' }}"
-                        href="{{ route('ambientes.index') }}">
+                        href="{{ route('ambientes.index') }}" style="color: #080808!important;">
                         Ambientes
                     </a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('admin.*') ? 'active' : '' }}"
-                        href="{{ route('admin.index') }}">
+                        href="{{ route('admin.index') }}" style="color: #080808!important;">
                         Usuarios
                     </a>
                 </li>
@@ -33,7 +33,7 @@
             <ul class="navbar-nav ms-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">
+                        data-bs-toggle="dropdown" aria-expanded="false" style="color: #080808!important;">
                         {{ Auth::user()->name }}
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="userDropdown">

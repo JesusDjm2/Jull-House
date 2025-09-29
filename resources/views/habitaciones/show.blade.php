@@ -1,16 +1,16 @@
 <x-app-layout>
     <x-slot name="header">
-    <div class="d-flex justify-content-between align-items-center">
-        <h2 class="h4 text-dark fw-semibold mb-0">
-            {{ $ambiente->nombre }}
-        </h2>
+        <div class="d-flex justify-content-between align-items-center">
+            <h2 class="h4 text-dark fw-semibold mb-0">
+                {{ $ambiente->nombre }}
+            </h2>
 
-        <!-- Botón regresar -->
-        <a href="{{ route('ambientes.index') }}" class="btn btn-danger">
-            Volver
-        </a>
-    </div>
-</x-slot>
+            <!-- Botón regresar -->
+            <a href="{{ route('ambientes.index') }}" class="btn btn-danger">
+                Volver
+            </a>
+        </div>
+    </x-slot>
 
 
     <div class="container my-5">
@@ -39,6 +39,23 @@
                             <th>Descripción</th>
                             <td>{{ $ambiente->descripcion }}</td>
                         </tr>
+                        @if ($ambiente->features->count())
+                            <tr>
+                                <th>Habitaciones</th>
+                                <td>
+                                    <ul class="mb-0">
+                                        @foreach ($ambiente->features as $feature)
+                                            <li>
+                                                <strong>{{ $feature->nombre }}</strong>
+                                                @if ($feature->detalle)
+                                                    : {{ $feature->detalle }}
+                                                @endif
+                                            </li>
+                                        @endforeach
+                                    </ul>
+                                </td>
+                            </tr>
+                        @endif
                     </tbody>
                 </table>
             </div>

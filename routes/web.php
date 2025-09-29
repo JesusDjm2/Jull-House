@@ -35,7 +35,6 @@ Route::get('/dashboard', function () { });
     foreach ($roles as $rol) {
         Role::firstOrCreate(['name' => $rol]);
     }
-
     return 'Roles creados correctamente ✅';
 }); */
 

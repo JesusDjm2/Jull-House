@@ -35,6 +35,8 @@ class RoomController extends Controller
             'precio' => 'nullable|numeric|min:0',
             'capacidad' => 'nullable|integer|min:1',
             'descripcion' => 'nullable|string',
+            'features.*.nombre' => 'required_with:features|string|max:255',
+            'features.*.detalle' => 'nullable|string|max:255',
             'imagenes.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
         ]);
         $room = Room::create($request->only([
@@ -44,6 +46,14 @@ class RoomController extends Controller
             'capacidad',
             'descripcion',
         ]));
+
+        if ($request->has('features')) {
+            foreach ($request->input('features') as $feature) {
+                if (! empty($feature['nombre'])) {
+                    $room->features()->create($feature);
+                }
+            }
+        }
 
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $imagen) {
@@ -71,6 +81,7 @@ class RoomController extends Controller
     {
         $ambiente = Room::with('images')->findOrFail($id);
         $otrosAmbientes = Room::where('id', '!=', $ambiente->id)->get();
+
         return view('habitaciones.mostrar', compact('ambiente', 'otrosAmbientes'));
     }
 

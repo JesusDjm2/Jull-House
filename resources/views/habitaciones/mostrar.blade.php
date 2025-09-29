@@ -61,10 +61,27 @@
     {{-- 🔹 Contenido principal + sidebar --}}
     <div class="container my-5">
         <div class="row espacio-ambientes">
-            {{-- Contenido principal --}}
             <div class="col-lg-8 pt-4">
-                <h2 class="mb-4">Bienvenido a {{ $ambiente->nombre }}</h2>
+                <h2 class="mb-4">{{ $ambiente->nombre }}</h2>
                 <p>{{ $ambiente->descripcion }}</p>
+
+                @if ($ambiente->features->count())
+                    <h5 class="mt-4">
+                        {{ $ambiente->features->count() === 1 ? 'Habitación' : 'Habitaciones' }}:
+                    </h5>
+                    <ul class="list-unstyled small mb-4">
+                        @foreach ($ambiente->features as $feature)
+                            <li class="mb-1">
+                                <i class="fa-solid fa-bed text-primary me-2"></i>
+                                <strong>{{ $feature->nombre }}</strong>
+                                @if ($feature->detalle)
+                                    – <span class="text-muted">{{ $feature->detalle }}</span>
+                                @endif
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
+
                 <ul class="list-unstyled mt-4">
                     <li class="mb-2"><i class="fa-solid fa-users me-2"></i> Capacidad:
                         {{ $ambiente->capacidad }} personas</li>
@@ -146,5 +163,5 @@
         </div>
     </div>
 
-   
+
 @endsection
