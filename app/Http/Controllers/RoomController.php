@@ -99,12 +99,22 @@ class RoomController extends Controller
             'precio' => 'nullable|numeric|min:0',
             'capacidad' => 'nullable|integer|min:1',
             'descripcion' => 'nullable|string',
+            'features.*.nombre' => 'required_with:features|string|max:255',
+            'features.*.detalle' => 'nullable|string|max:255',
             'imagenes.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
         ]);
 
         // ✅ Actualizar datos principales
         $ambiente->update($request->only(['nombre', 'tipo', 'precio', 'capacidad', 'descripcion']));
 
+       if ($request->filled('features')) {
+        $ambiente->features()->delete();
+        foreach ($request->input('features') as $feature) {
+            if (! empty($feature['nombre'])) {
+                $ambiente->features()->create($feature);
+            }
+        }
+    }
         // ✅ Manejo de imágenes
         if ($request->hasFile('imagenes')) {
             // 1. Eliminar imágenes anteriores (físicamente y en DB)
