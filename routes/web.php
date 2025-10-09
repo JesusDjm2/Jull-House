@@ -25,6 +25,8 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/ambientes/{ambiente}/ver-ambiente', [RoomController::class, 'ver'])->name('ambiente.ver');
+Route::post('/contacto', [RoomController::class, 'enviar'])->name('contacto.enviar');
+
 
 Route::get('/dashboard', function () { });
 

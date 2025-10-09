@@ -178,4 +178,19 @@
             </div>
         </div>
     </div>
+    <script>
+        let featureIndex = 1;
+
+        function addFeature() {
+            let wrapper = document.getElementById('features-wrapper');
+            let div = document.createElement('div');
+            div.classList.add('feature');
+            div.innerHTML = `
+            <input type="text" class="form-control form-control-sm mb-2" name="features[${featureIndex}][nombre]" placeholder="Ej: HAB 02">
+            <input type="text" class="form-control form-control-sm mb-2" name="features[${featureIndex}][detalle]" placeholder="Ej: 01 CAMA QUEEN">
+        `;
+            wrapper.appendChild(div);
+            featureIndex++;
+        }
+    </script>
 </x-app-layout>

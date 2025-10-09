@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Administrador Jull House</title>
     <link rel="icon" href="{{ asset('img/icono-jull-house.png') }}" type="image/x-icon">
     <link rel="shortcut icon" href="{{ asset('img/icono-jull-house.png') }}" type="image/x-icon">
     <!-- Fonts -->
@@ -29,7 +29,6 @@
     <div class="min-vh-100 bg-light">
         <!-- Navbar -->
         @include('layouts.navigation')
-
         <!-- Page Heading -->
         @isset($header)
             <header class="bg-white shadow-sm">
@@ -38,7 +37,6 @@
                 </div>
             </header>
         @endisset
-
         <!-- Page Content -->
         <main class="container my-4">
             {{ $slot }}

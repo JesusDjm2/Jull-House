@@ -14,7 +14,6 @@
                     </div>
                 @endforeach
             </div>
-
             <button class="carousel-control-prev" type="button" data-bs-target="#ambienteCarousel" data-bs-slide="prev">
                 <span class="carousel-control-prev-icon"></span>
             </button>
@@ -34,37 +33,31 @@
                     <label for="fecha_ingreso" class="form-label">Fecha de Ingreso</label>
                     <input type="date" class="form-control form-control-sm" name="fecha_ingreso" required>
                 </div>
-
                 <div class="col-md-3">
                     <label for="fecha_salida" class="form-label">Fecha de Salida</label>
                     <input type="date" class="form-control form-control-sm" name="fecha_salida" required>
                 </div>
-
                 <div class="col-md-2">
                     <label for="adultos" class="form-label">Adultos</label>
                     <input type="number" min="1" value="1" class="form-control form-control-sm" name="adultos"
                         required>
                 </div>
-
                 <div class="col-md-2">
                     <label for="ninos" class="form-label">Niños</label>
                     <input type="number" min="0" value="0" class="form-control form-control-sm" name="ninos">
                 </div>
-
                 <div class="col-md-2 d-grid">
                     <button type="submit">Reservar</button>
                 </div>
             </form>
         </div>
     </div>
-
     {{-- 🔹 Contenido principal + sidebar --}}
     <div class="container my-5">
         <div class="row espacio-ambientes">
             <div class="col-lg-8 pt-4">
                 <h2 class="mb-4">{{ $ambiente->nombre }}</h2>
                 <p>{{ $ambiente->descripcion }}</p>
-
                 @if ($ambiente->features->count())
                     <h5 class="mt-4">
                         {{ $ambiente->features->count() === 1 ? 'Habitación' : 'Habitaciones' }}:
@@ -81,7 +74,6 @@
                         @endforeach
                     </ul>
                 @endif
-
                 <ul class="list-unstyled mt-4">
                     <li class="mb-2"><i class="fa-solid fa-users me-2"></i> Capacidad:
                         {{ $ambiente->capacidad }} personas</li>
@@ -91,7 +83,6 @@
                     <li class="mb-2"><i class="fa-solid fa-wifi me-2"></i> Wifi gratuito</li>
                     <li class="mb-2"><i class="fa-solid fa-bath me-2"></i> Baño privado</li>
                 </ul>
-
                 {{-- Galería elegante dentro del col-lg-8 --}}
                 @if ($ambiente->images->count())
                     <h3 class="text-center my-4">Galería</h3>
@@ -107,7 +98,6 @@
                                     </div>
                                 </a>
                             </div>
-
                             {{-- Modal para ver en grande --}}
                             <div class="modal fade" id="modalGaleria{{ $loop->index }}" tabindex="-1" aria-hidden="true">
                                 <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -127,7 +117,6 @@
             <div class="col-lg-4">
                 <div class="p-3 bg-light rounded shadow-sm">
                     <h5 class="mb-3">Ambientes Jull House</h5>
-
                     <div class="d-flex flex-column gap-3">
                         @foreach ($otrosAmbientes as $otro)
                             <div class="card border-0 shadow-sm">
@@ -140,7 +129,6 @@
                                     <img src="{{ asset('img/default-room.jpg') }}" class="card-img-top" alt="Sin imagen"
                                         style="height: 140px; object-fit: cover; border-top-left-radius: .5rem; border-top-right-radius: .5rem;">
                                 @endif
-
                                 <div class="card-body p-3">
                                     <h6 class="card-title mb-2">
                                         <i class="fa-solid fa-door-open me-1"></i> {{ $otro->nombre }}
@@ -162,6 +150,4 @@
             </div>
         </div>
     </div>
-
-
 @endsection

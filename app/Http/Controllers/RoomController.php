@@ -107,14 +107,14 @@ class RoomController extends Controller
         // ✅ Actualizar datos principales
         $ambiente->update($request->only(['nombre', 'tipo', 'precio', 'capacidad', 'descripcion']));
 
-       if ($request->filled('features')) {
-        $ambiente->features()->delete();
-        foreach ($request->input('features') as $feature) {
-            if (! empty($feature['nombre'])) {
-                $ambiente->features()->create($feature);
+        if ($request->filled('features')) {
+            $ambiente->features()->delete();
+            foreach ($request->input('features') as $feature) {
+                if (! empty($feature['nombre'])) {
+                    $ambiente->features()->create($feature);
+                }
             }
         }
-    }
         // ✅ Manejo de imágenes
         if ($request->hasFile('imagenes')) {
             // 1. Eliminar imágenes anteriores (físicamente y en DB)
@@ -157,5 +157,26 @@ class RoomController extends Controller
         return redirect()
             ->route('ambientes.index')
             ->with('success', 'Ambiente eliminado correctamente ✅');
+    }
+
+    public function enviar(Request $request)
+    {
+        // Protección extra: si el honeypot tiene valor, es un bot
+        if (! empty($request->apellido)) {
+            abort(403, 'Acceso denegado');
+        }
+
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:100',
+            'email' => 'required|email|max:100',
+            'mensaje' => 'required|string|max:1000',
+        ]);
+
+        // Aquí podrías enviar correo, guardar en BD, etc.
+        Mail::raw("Mensaje de: {$validated['nombre']} ({$validated['email']})\n\n{$validated['mensaje']}", function ($msg) {
+            $msg->to('contacto@hotel.com')->subject('Nuevo mensaje de contacto');
+        });
+
+        return back()->with('success', '¡Tu mensaje ha sido enviado correctamente!');
     }
 }

@@ -88,14 +88,51 @@
         @yield('contenido')
     </main>
     <!-- 🔹 Footer -->
-    <footer class="bg-dark text-white text-center py-3 mt-auto">
+    <footer class="bg-dark text-white pt-5 pb-3 mt-auto">
         <div class="container">
-            <p class="mb-1">&copy; {{ date('Y') }} Hotel Demo. Todos los derechos reservados.</p>
-            <small>
-                <i class="fa-solid fa-location-dot"></i> Av. Principal 123 ·
-                <i class="fa-solid fa-envelope"></i> contacto@hotel.com ·
-                <i class="fa-solid fa-phone"></i> +51 999 999 999
-            </small>
+            <div class="row text-center text-md-start">
+
+                <!-- Logo -->
+                <div class="col-md-3 mb-4 mb-md-0 d-flex flex-column align-items-center align-items-md-start">
+                    <img src="{{ asset('img/Logo-jull-house-blanco.png') }}" alt="Hotel Demo Logo" class="mb-3"
+                        style="max-width: 130px;">
+                    <p class="small text-white">Tu comodidad es nuestra prioridad.</p>
+                </div>
+
+                <!-- Contacto -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="text-uppercase fw-bold mb-3">Contacto</h6>
+                    <p class="mb-1"><i class="fa-solid fa-phone me-2"></i> +51 974 732 779</p>
+                    <p class="mb-1"><i class="fa-solid fa-envelope me-2"></i> reservas@jullhousecusco.com</p>
+                    {{-- <p class="mb-0"><i class="fa-solid fa-location-dot me-2"></i> Av. Principal 123</p> --}}
+                </div>
+
+                <!-- Políticas -->
+                <div class="col-md-3 mb-4 mb-md-0">
+                    <h6 class="text-uppercase fw-bold mb-3">Información</h6>
+                    <ul class="list-unstyled">
+                        <li><a href="#" class="text-white text-decoration-none">Políticas de reserva</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Libro de reclamaciones</a></li>
+                        <li><a href="#" class="text-white text-decoration-none">Términos y condiciones</a></li>
+                    </ul>
+                </div>
+
+                <!-- Redes sociales -->
+                <div class="col-md-3">
+                    <h6 class="text-uppercase fw-bold mb-3">Síguenos</h6>
+                    <div class="d-flex justify-content-center justify-content-md-start gap-3">
+                        <a href="https://www.facebook.com/AlojamientoJullHouse" target="_blank" class="text-white fs-5"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" target="_blank" class="text-white fs-5"><i class="fa-brands fa-instagram"></i></a>
+                        <a href="#" target="_blank" class="text-white fs-5"><i class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://wa.me/51974732779" target="_blank" class="text-white fs-5"><i class="fa-brands fa-whatsapp"></i></a>
+                    </div>
+                </div>
+            </div>
+            <hr class="border-secondary my-4">
+            <!-- Copyright -->
+            <div class="text-center">
+                <small>&copy; {{ date('Y') }} Jull House. Todos los derechos reservados.</small>
+            </div>
         </div>
     </footer>
 

@@ -2,7 +2,7 @@
 @section('titulo', 'Bienvenidos a Jull House')
 @section('contenido')
     <section class="accommodation-header text-center text-white position-relative"
-        style="background: url('{{ asset('img/fondo-principal.JPG') }}') center/cover no-repeat; height: 60vh;" >
+        style="background: url('{{ asset('img/fondo-principal.JPG') }}') center/cover no-repeat; height: 60vh;">
         <div class="overlay position-absolute w-100 h-100 top-0 start-0" style="background: #0000001c;"></div>
         <div class="container position-relative h-100 d-flex align-items-center justify-content-center">
             <div class="header-content">
@@ -77,53 +77,93 @@
         </div>
     </section>
 
-    <!-- Otra sección de contacto o reserva -->
-    <section class="contacto py-5 bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h3>Comuníquese con nosotros</h3>
-                    <p>Reservas · 1 800 237 1236<br>Teléfono · +51 84 604 000<br>Dirección · Calle Plazoleta Nazarenas 337,
-                        Cusco, Perú</p>
-                    <a href="reservas.html" class="btn btn-outline-primary">Reservar ahora</a>
-                </div>
+    <!-- Sección de contacto -->
+<section class="contacto py-5 bg-light" id="contacto">
+    <div class="container">
+        <div class="row justify-content-center mb-4">
+            <div class="col-lg-12 text-center">
+                <h3 class="fw-bold mb-3">Contáctese con nosotros</h3>                
             </div>
         </div>
-    </section>
-     <section class="contacto py-5 bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h3>Comuníquese con nosotros</h3>
-                    <p>Reservas · 1 800 237 1236<br>Teléfono · +51 84 604 000<br>Dirección · Calle Plazoleta Nazarenas 337,
-                        Cusco, Perú</p>
-                    <a href="reservas.html" class="btn btn-outline-primary">Reservar ahora</a>
-                </div>
+
+        <div class="row justify-content-center">
+            <div class="col-lg-12">
+                <form action="{{ route('contacto.enviar') }}" method="POST" class="bg-white p-4 rounded shadow-sm">
+                    @csrf
+                    <!-- Honeypot invisible (antispam) -->
+                    <div style="display:none;">
+                        <input type="text" name="apellido" tabindex="-1" autocomplete="off">
+                    </div>
+
+                    <div class="row">
+                        <!-- Nombre -->
+                        <div class="col-md-6 mb-3">
+                            <label for="nombre" class="form-label">Nombre completo</label>
+                            <input type="text" name="nombre" id="nombre" class="form-control" required>
+                        </div>
+
+                        <!-- Correo -->
+                        <div class="col-md-6 mb-3">
+                            <label for="email" class="form-label">Correo electrónico</label>
+                            <input type="email" name="email" id="email" class="form-control" required>
+                        </div>
+
+                        <!-- Ambientes -->
+                        <div class="col-md-12 mb-3">
+                            <label for="ambiente_id" class="form-label">Seleccione un ambiente</label>
+                            <select name="ambiente_id" id="ambiente_id" class="form-select" required>
+                                <option value="" disabled selected>-- Elige un ambiente --</option>
+                                @forelse ($ambientes as $ambiente)
+                                    <option value="{{ $ambiente->id }}">
+                                        {{ $ambiente->nombre }} — Capacidad: {{ $ambiente->capacidad }} personas
+                                    </option>
+                                @empty
+                                    <option disabled>No hay ambientes disponibles</option>
+                                @endforelse
+                            </select>
+                        </div>
+
+                        <!-- Adultos y niños -->
+                        <div class="col-md-3 mb-3">
+                            <label for="adultos" class="form-label">Cantidad de adultos</label>
+                            <input type="number" name="adultos" id="adultos" class="form-control" min="1" max="10" required>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="ninos" class="form-label">Cantidad de niños</label>
+                            <input type="number" name="ninos" id="ninos" class="form-control" min="0" max="10" required>
+                        </div>
+
+                        <!-- Fechas -->
+                        <div class="col-md-3 mb-3">
+                            <label for="fecha_llegada" class="form-label">Fecha de llegada</label>
+                            <input type="date" name="fecha_llegada" id="fecha_llegada" class="form-control" required>
+                        </div>
+
+                        <div class="col-md-3 mb-3">
+                            <label for="fecha_salida" class="form-label">Fecha de salida</label>
+                            <input type="date" name="fecha_salida" id="fecha_salida" class="form-control" required>
+                        </div>
+
+                        <!-- Mensaje -->
+                        <div class="col-12 mb-3">
+                            <label for="mensaje" class="form-label">Mensaje adicional</label>
+                            <textarea name="mensaje" id="mensaje" rows="3" class="form-control" placeholder="Cuéntenos más sobre su reserva..." required></textarea>
+                        </div>
+
+                        <!-- Botón -->
+                        <div class="col-12 text-center">
+                            <button type="submit" class="btn btn-primary px-4">
+                                <i class="fa-solid fa-paper-plane me-2"></i> Enviar mensaje
+                            </button>
+                        </div>
+                    </div>
+                </form>
             </div>
         </div>
-    </section>
-     <section class="contacto py-5 bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h3>Comuníquese con nosotros</h3>
-                    <p>Reservas · 1 800 237 1236<br>Teléfono · +51 84 604 000<br>Dirección · Calle Plazoleta Nazarenas 337,
-                        Cusco, Perú</p>
-                    <a href="reservas.html" class="btn btn-outline-primary">Reservar ahora</a>
-                </div>
-            </div>
-        </div>
-    </section>
-     <section class="contacto py-5 bg-light">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-lg-8 text-center">
-                    <h3>Comuníquese con nosotros</h3>
-                    <p>Reservas · 1 800 237 1236<br>Teléfono · +51 84 604 000<br>Dirección · Calle Plazoleta Nazarenas 337,
-                        Cusco, Perú</p>
-                    <a href="reservas.html" class="btn btn-outline-primary">Reservar ahora</a>
-                </div>
-            </div>
-        </div>
-    </section>
+    </div>
+</section>
+
+
+
 @endsection
