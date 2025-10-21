@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <dwsync>
-<file name="confirm-password.blade.php" server="216.246.47.72" local="134018403635685880" remote="134045187000000000" Dst="0" />
-<file name="forgot-password.blade.php" server="216.246.47.72" local="134018403635695901" remote="134045187000000000" Dst="0" />
-<file name="login.blade.php" server="216.246.47.72" local="134018403635695901" remote="134045187000000000" Dst="0" />
-<file name="register.blade.php" server="216.246.47.72" local="134026019714404070" remote="134045187000000000" Dst="0" />
-<file name="reset-password.blade.php" server="216.246.47.72" local="134018403635705789" remote="134045187000000000" Dst="0" />
-<file name="verify-email.blade.php" server="216.246.47.72" local="134018403635705789" remote="134045187000000000" Dst="0" />
+<file name="confirm-password.blade.php" server="216.246.47.72" local="134018403635685880" remote="134055557400000000" Dst="0" />
+<file name="forgot-password.blade.php" server="216.246.47.72" local="134018403635695901" remote="134055557400000000" Dst="0" />
+<file name="login.blade.php" server="216.246.47.72" local="134018403635695901" remote="134055557400000000" Dst="0" />
+<file name="register.blade.php" server="216.246.47.72" local="134026019714404070" remote="134055557400000000" Dst="0" />
+<file name="reset-password.blade.php" server="216.246.47.72" local="134018403635705789" remote="134055557400000000" Dst="0" />
+<file name="verify-email.blade.php" server="216.246.47.72" local="134018403635705789" remote="134055557400000000" Dst="0" />
 </dwsync>
