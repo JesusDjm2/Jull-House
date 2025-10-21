@@ -19,6 +19,7 @@
     <!-- Bootstrap -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet"
         integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+   
 </head>
 
 <body class="d-flex flex-column min-vh-100">
@@ -121,10 +122,14 @@
                 <div class="col-md-3">
                     <h6 class="text-uppercase fw-bold mb-3">Síguenos</h6>
                     <div class="d-flex justify-content-center justify-content-md-start gap-3">
-                        <a href="https://www.facebook.com/AlojamientoJullHouse" target="_blank" class="text-white fs-5"><i class="fa-brands fa-facebook-f"></i></a>
-                        <a href="#" target="_blank" class="text-white fs-5"><i class="fa-brands fa-instagram"></i></a>
-                        <a href="#" target="_blank" class="text-white fs-5"><i class="fa-brands fa-x-twitter"></i></a>
-                        <a href="https://wa.me/51974732779" target="_blank" class="text-white fs-5"><i class="fa-brands fa-whatsapp"></i></a>
+                        <a href="https://www.facebook.com/AlojamientoJullHouse" target="_blank"
+                            class="text-white fs-5"><i class="fa-brands fa-facebook-f"></i></a>
+                        <a href="#" target="_blank" class="text-white fs-5"><i
+                                class="fa-brands fa-instagram"></i></a>
+                        <a href="#" target="_blank" class="text-white fs-5"><i
+                                class="fa-brands fa-x-twitter"></i></a>
+                        <a href="https://wa.me/51974732779" target="_blank" class="text-white fs-5"><i
+                                class="fa-brands fa-whatsapp"></i></a>
                     </div>
                 </div>
             </div>

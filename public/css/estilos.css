@@ -1,3 +1,4 @@
+@charset "UTF-8";
 .navbar {
   z-index: 1030;
   background-color: #111827;
@@ -94,6 +95,24 @@
   margin-top: 4px;
 }
 
+#calendar h2 {
+  font-size: 18px !important;
+  color: #000 !important;
+  text-transform: uppercase !important;
+  font-weight: 600 !important;
+  text-align: center !important;
+  margin-left: 0.6em;
+  letter-spacing: normal !important;
+  position: static !important;
+  margin-bottom: 0 !important;
+  background: none !important;
+  box-shadow: none !important;
+}
+#calendar h2::before, #calendar h2::after {
+  content: none !important;
+  display: none !important;
+}
+
 .nav-link {
   display: inline-flex;
   align-items: center;
@@ -111,7 +130,7 @@
 }
 .nav-link.active, .nav-link.nav-link-active {
   border-bottom-color: #6366f1;
-  color: #ffffff;
+  color: #c9a91c;
 }
 .nav-link i {
   font-size: 0.875em;
@@ -159,7 +178,7 @@
   width: 80px;
   height: 3px;
   border-radius: 2px;
-  background: linear-gradient(90deg, #ebd36c, rgb(225.8383233533, 190.8443113772, 40.6616766467));
+  background: #ebd36c;
 }
 .espacio-ambientes h2::before {
   content: "\f005";
@@ -174,8 +193,75 @@
   background: #fff;
   padding: 0 8px;
 }
-.espacio-ambientes ul li i {
+.espacio-ambientes h5 {
+  font-size: 1rem;
+  font-weight: 600;
+  color: #374151;
+  margin-top: 1.5rem;
+  margin-bottom: 0.8rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.espacio-ambientes p {
+  font-size: 0.95rem;
+  color: #4b5563;
+  line-height: 1.6;
+  margin-bottom: 1.5rem;
+}
+.espacio-ambientes ul.list-unstyled,
+.espacio-ambientes ul.list-inline {
+  margin-top: 0.5rem;
+}
+.espacio-ambientes ul.list-unstyled li,
+.espacio-ambientes ul.list-inline li {
+  font-size: 0.9rem;
+  color: #374151;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+.espacio-ambientes ul.list-unstyled li i,
+.espacio-ambientes ul.list-inline li i {
   color: #ebd36c;
+}
+.espacio-ambientes ul.list-unstyled li:hover,
+.espacio-ambientes ul.list-inline li:hover {
+  transform: translateX(3px);
+  color: #ebd36c;
+}
+.espacio-ambientes ul.list-inline {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.2rem;
+}
+.espacio-ambientes ul.list-inline li {
+  background: #f9fafb;
+  border-radius: 10px;
+  padding: 0.8rem 1rem;
+  width: 120px;
+  height: 110px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+.espacio-ambientes ul.list-inline li i {
+  font-size: 1.6rem;
+  margin-bottom: 0.4rem;
+  color: #ebd36c;
+}
+.espacio-ambientes ul.list-inline li span {
+  font-size: 0.85rem;
+  font-weight: 500;
+  color: #374151;
+  line-height: 1.2;
+  margin-top: 1em;
+}
+.espacio-ambientes ul.list-inline li:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+  background: rgba(235, 211, 108, 0.05);
 }
 
 .reserva-ambientes {
@@ -185,10 +271,16 @@
   position: sticky;
   top: 68px;
   z-index: 1020;
+  /* 🔹 Diseño responsive */
 }
 .reserva-ambientes label {
   color: #fff !important;
   font-size: 12px;
+  margin-bottom: 0.3rem;
+}
+.reserva-ambientes input,
+.reserva-ambientes select {
+  font-size: 14px;
 }
 .reserva-ambientes button {
   background: #ebd36c !important;
@@ -196,11 +288,38 @@
   border-color: #ebd36c !important;
   transition: all 0.3s ease;
   border-radius: 4px;
+  font-weight: 600;
+  padding: 0.5rem 0.75rem;
 }
 .reserva-ambientes button:hover {
   background: #fff !important;
   color: #aa994b !important;
   border-color: #ebd36c !important;
+}
+@media (max-width: 992px) {
+  .reserva-ambientes .row {
+    row-gap: 0.8rem;
+  }
+}
+@media (max-width: 768px) {
+  .reserva-ambientes {
+    position: relative;
+    top: 0;
+    padding: 1.2rem;
+    text-align: center;
+  }
+  .reserva-ambientes form {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .reserva-ambientes .col-md-3,
+  .reserva-ambientes .col-md-2 {
+    width: 100%;
+  }
+  .reserva-ambientes button {
+    width: 100%;
+  }
 }
 
 /*# sourceMappingURL=estilos.css.map */

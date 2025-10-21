@@ -1,6 +1,9 @@
 @extends('layouts.padre')
 @section('titulo', $ambiente->nombre)
 @section('contenido')
+    {{-- CSS de FullCalendar --}}
+    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.css" rel="stylesheet">
+
     @if ($ambiente->images->count())
         <div id="ambienteCarousel" class="carousel slide" data-bs-ride="carousel">
             <div class="carousel-inner">
@@ -74,15 +77,17 @@
                         @endforeach
                     </ul>
                 @endif
-                <ul class="list-unstyled mt-4">
-                    <li class="mb-2"><i class="fa-solid fa-users me-2"></i> Capacidad:
-                        {{ $ambiente->capacidad }} personas</li>
-                    <li class="mb-2"><i class="fa-solid fa-dollar-sign me-2"></i> Precio:
-                        ${{ number_format($ambiente->precio, 2) }}</li>
-                    <li class="mb-2"><i class="fa-solid fa-bed me-2"></i> Cómodas camas</li>
-                    <li class="mb-2"><i class="fa-solid fa-wifi me-2"></i> Wifi gratuito</li>
-                    <li class="mb-2"><i class="fa-solid fa-bath me-2"></i> Baño privado</li>
-                </ul>
+                @if ($ambiente->facilities->where('extra', false)->count())
+                    <h5 class="mt-4">Servicios incluidos:</h5>
+                    <ul class="list-inline">
+                        @foreach ($ambiente->facilities->where('extra', false) as $facility)
+                            <li class="list-inline-item mb-3 me-3 text-center">
+                                <i class="{{ $facility->icono }} fa-lg text-primary d-block mb-1"></i>
+                                <span class="small d-block">{{ $facility->nombre }}</span>
+                            </li>
+                        @endforeach
+                    </ul>
+                @endif
                 {{-- Galería elegante dentro del col-lg-8 --}}
                 @if ($ambiente->images->count())
                     <h3 class="text-center my-4">Galería</h3>
@@ -112,10 +117,37 @@
                         @endforeach
                     </div>
                 @endif
+                <h4 class="mt-4 mb-3">Disponibilidad en calendario</h4>
+                <div id="calendar" class="calendario"></div>
+                @if (!empty($ambiente->mapa))
+                    <h4 class="mt-4 mb-3">Ubicación</h4>
+                    <div class="ratio ratio-16x9 rounded shadow-sm overflow-hidden">
+                        {!! $ambiente->mapa !!}
+                    </div>
+                @else
+                    <div class="alert alert-warning mt-3">
+                        <i class="fa-solid fa-map-location-dot me-2"></i> Este ambiente aún no tiene un mapa configurado.
+                    </div>
+                @endif
             </div>
             {{-- Sidebar con otros ambientes --}}
             <div class="col-lg-4">
                 <div class="p-3 bg-light rounded shadow-sm">
+                    @if ($ambiente->facilities->where('extra', true)->count())
+                        <div class="mt-4">
+                            <h6 class="fw-bold text-warning mb-2">
+                                <i class="fa-solid fa-star text-warning me-1"></i> Servicios Extra
+                            </h6>
+                            <ul class="list-unstyled small">
+                                @foreach ($ambiente->facilities->where('extra', true) as $extra)
+                                    <li class="mb-2 d-flex align-items-center">
+                                        <i class="{{ $extra->icono }} text-warning me-2"></i>
+                                        {{ $extra->nombre }}
+                                    </li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
                     <h5 class="mb-3">Ambientes Jull House</h5>
                     <div class="d-flex flex-column gap-3">
                         @foreach ($otrosAmbientes as $otro)
@@ -150,4 +182,26 @@
             </div>
         </div>
     </div>
+
+    {{-- <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/main.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/locales/es.js"></script> --}}
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log("✅ FullCalendar listo");
+            var calendarEl = document.getElementById('calendar');
+            if (!calendarEl) return console.error("No se encontró el div #calendar");
+
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'dayGridMonth',
+                locale: 'es',
+                height: 600,
+                events: @json($eventos),
+                eventColor: '#e63946',
+                eventTextColor: '#fff'
+            });
+            calendar.render();
+        });
+    </script>
+
 @endsection

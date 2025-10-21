@@ -115,7 +115,29 @@ $colorPrincipal: #ebd36c;
         }
     }
 }
+#calendar {
+    h2 {
+        // Restablecer estilos del título
+        font-size: 18px !important;
+        color: #000 !important;
+        text-transform: uppercase !important;
+        font-weight: 600 !important;
+        text-align: center !important;
+        margin-left: 0.6em;
+        letter-spacing: normal !important;
+        position: static !important;
+        margin-bottom: 0 !important;
+        background: none !important;
+        box-shadow: none !important;
 
+        // Eliminar pseudo-elementos heredados
+        &::before,
+        &::after {
+            content: none !important;
+            display: none !important;
+        }
+    }
+}
 
 // Tus estilos de nav-link
 .nav-link {
@@ -137,7 +159,7 @@ $colorPrincipal: #ebd36c;
     &.active,
     &.nav-link-active {
         border-bottom-color: #6366f1;
-        color: #ffffff;
+        color: #c9a91c;
     }
 
     i {
@@ -193,7 +215,7 @@ $colorPrincipal: #ebd36c;
             width: 80px;
             height: 3px;
             border-radius: 2px;
-            background: linear-gradient(90deg, $colorPrincipal, darken($colorPrincipal, 15%));
+            background: $colorPrincipal;
         }
 
         &::before {
@@ -211,17 +233,88 @@ $colorPrincipal: #ebd36c;
         }
     }
 
-    ul {
+    h5 {
+        font-size: 1rem;
+        font-weight: 600;
+        color: #374151;
+        margin-top: 1.5rem;
+        margin-bottom: 0.8rem;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+    }
+
+    p {
+        font-size: 0.95rem;
+        color: #4b5563;
+        line-height: 1.6;
+        margin-bottom: 1.5rem;
+    }
+
+    ul.list-unstyled,
+    ul.list-inline {
+        margin-top: 0.5rem;
+
         li {
+            font-size: 0.9rem;
+            color: #374151;
+            transition: transform 0.2s ease, color 0.2s ease;
+
             i {
+                color: $colorPrincipal;
+            }
+
+            &:hover {
+                transform: translateX(3px);
                 color: $colorPrincipal;
             }
         }
     }
+
+    // Servicios (iconos)
+    ul.list-inline {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+
+    li {
+        background: #f9fafb;
+        border-radius: 10px;
+        padding: 0.8rem 1rem;
+        width: 120px;
+        height: 110px; // fija altura para uniformidad visual
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        text-align: center;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+        transition: transform 0.2s ease, box-shadow 0.2s ease;
+
+        i {
+            font-size: 1.6rem;
+            margin-bottom: 0.4rem;
+            color: $colorPrincipal;
+        }
+
+        span {
+            font-size: 0.85rem;
+            font-weight: 500;
+            color: #374151;
+            line-height: 1.2;
+            margin-top: 1em;
+        }
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.08);
+            background: rgba($colorPrincipal, 0.05);
+        }
+    }
+}
 }
 
 .reserva-ambientes {
-    background: rgb(71 76 80);
+    background: rgb(71, 76, 80);
     border-top: 0.1em solid #ffffff7a;
     padding: 1rem;
     position: sticky;
@@ -231,6 +324,12 @@ $colorPrincipal: #ebd36c;
     label {
         color: #fff !important;
         font-size: 12px;
+        margin-bottom: 0.3rem;
+    }
+
+    input,
+    select {
+        font-size: 14px;
     }
 
     button {
@@ -239,11 +338,42 @@ $colorPrincipal: #ebd36c;
         border-color: $colorPrincipal !important;
         transition: all 0.3s ease;
         border-radius: 4px;
+        font-weight: 600;
+        padding: 0.5rem 0.75rem;
 
         &:hover {
             background: #fff !important;
             color: #aa994b !important;
             border-color: $colorPrincipal !important;
+        }
+    }
+
+    /* 🔹 Diseño responsive */
+    @media (max-width: 992px) {
+        .row {
+            row-gap: 0.8rem;
+        }
+    }
+
+    @media (max-width: 768px) {
+        position: relative;
+        top: 0;
+        padding: 1.2rem;
+        text-align: center;
+
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .col-md-3,
+        .col-md-2 {
+            width: 100%;
+        }
+
+        button {
+            width: 100%;
         }
     }
 }

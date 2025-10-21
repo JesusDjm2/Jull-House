@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<dwsync>
+<file name="AuthenticatedSessionController.php" server="216.246.47.72" local="134018403635346788" remote="134055552600000000" Dst="0" />
+<file name="EmailVerificationPromptController.php" server="216.246.47.72" local="134018403635380807" remote="134055552600000000" Dst="0" />
+<file name="NewPasswordController.php" server="216.246.47.72" local="134018403635380807" remote="134055552600000000" Dst="0" />
+<file name="ConfirmablePasswordController.php" server="216.246.47.72" local="134018403635360884" remote="134055552600000000" Dst="0" />
+<file name="EmailVerificationNotificationController.php" server="216.246.47.72" local="134018403635370856" remote="134055552600000000" Dst="0" />
+<file name="PasswordController.php" server="216.246.47.72" local="134018403635390788" remote="134055552600000000" Dst="0" />
+<file name="PasswordResetLinkController.php" server="216.246.47.72" local="134018403635400757" remote="134055552600000000" Dst="0" />
+<file name="RegisteredUserController.php" server="216.246.47.72" local="134026021238276139" remote="134055552600000000" Dst="0" />
+<file name="VerifyEmailController.php" server="216.246.47.72" local="134018403635420712" remote="134055552600000000" Dst="0" />
+</dwsync>

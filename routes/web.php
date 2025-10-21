@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\FacilityController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoomController;
 use Illuminate\Support\Facades\Route;
 use Spatie\Permission\Models\Role;
@@ -27,9 +28,12 @@ Route::middleware('auth')->group(function () {
 Route::get('/ambientes/{ambiente}/ver-ambiente', [RoomController::class, 'ver'])->name('ambiente.ver');
 Route::post('/contacto', [RoomController::class, 'enviar'])->name('contacto.enviar');
 
-
-Route::get('/dashboard', function () { });
-
+Route::get('/dashboard', function () {});
+Route::get('/ambientes/{id}/calendario', [RoomController::class, 'getCalendarEvents'])
+    ->name('calendario.ambiente');
+    
+//Facilities
+Route::resource('facilities', FacilityController::class)->names('facilities');
 
 /* Route::get('/crear-roles', function () {
     $roles = ['admin', 'cliente', 'asistente'];
@@ -40,4 +44,4 @@ Route::get('/dashboard', function () { });
     return 'Roles creados correctamente ✅';
 }); */
 
-require __DIR__ . '/auth.php';
+require __DIR__.'/auth.php';

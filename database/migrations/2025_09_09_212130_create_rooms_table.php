@@ -13,7 +13,9 @@ return new class extends Migration {
             $table->string('tipo')->nullable();               // Tipo (suite, doble, single...)
             $table->decimal('precio', 10, 2);// Precio por noche
             $table->unsignedInteger('capacidad');      
-            $table->text('descripcion')->nullable();           
+            $table->text('descripcion')->nullable();   
+            $table->string('ical_url')->nullable(); 
+            $table->text('mapa')->nullable();       
             $table->timestamps();
         });
     }

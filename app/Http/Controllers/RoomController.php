@@ -2,9 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Facility;
 use App\Models\Galeria;
 use App\Models\Room;
+use Carbon\Carbon;
+use ICal\ICal;
 use Illuminate\Http\Request;
+use Mail;
 
 class RoomController extends Controller
 {
@@ -24,7 +28,9 @@ class RoomController extends Controller
 
     public function create()
     {
-        return view('habitaciones.create');
+        $iconos = Facility::all();
+
+        return view('habitaciones.create', compact('iconos'));
     }
 
     public function store(Request $request)
@@ -35,9 +41,13 @@ class RoomController extends Controller
             'precio' => 'nullable|numeric|min:0',
             'capacidad' => 'nullable|integer|min:1',
             'descripcion' => 'nullable|string',
+            'mapa' => 'nullable',
             'features.*.nombre' => 'required_with:features|string|max:255',
             'features.*.detalle' => 'nullable|string|max:255',
+            'ical_url' => 'nullable|url|max:255',
             'imagenes.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
+            'facilities' => 'nullable|array', // ✅ Validamos el array de servicios
+            'facilities.*' => 'exists:facilities,id',
         ]);
         $room = Room::create($request->only([
             'nombre',
@@ -45,6 +55,8 @@ class RoomController extends Controller
             'precio',
             'capacidad',
             'descripcion',
+            'mapa',
+            'ical_url',
         ]));
 
         if ($request->has('features')) {
@@ -54,7 +66,6 @@ class RoomController extends Controller
                 }
             }
         }
-
         if ($request->hasFile('imagenes')) {
             foreach ($request->file('imagenes') as $imagen) {
                 $nombreOriginal = $imagen->getClientOriginalName();
@@ -65,6 +76,10 @@ class RoomController extends Controller
                     'alt' => $room->nombre,
                 ]);
             }
+        }
+
+        if ($request->filled('facilities')) {
+            $room->facilities()->sync($request->facilities);
         }
 
         return redirect()
@@ -81,13 +96,36 @@ class RoomController extends Controller
     {
         $ambiente = Room::with('images')->findOrFail($id);
         $otrosAmbientes = Room::where('id', '!=', $ambiente->id)->get();
+        $eventos = [];
 
-        return view('habitaciones.mostrar', compact('ambiente', 'otrosAmbientes'));
+        if ($ambiente->ical_url) {
+            try {
+                $ical = new ICal($ambiente->ical_url, [
+                    'defaultTimeZone' => 'America/Lima',
+                ]);
+
+                foreach ($ical->events() as $event) {
+                    $eventos[] = [
+                        'title' => $event->summary ?? 'Reserva Airbnb',
+                        'start' => Carbon::parse($event->dtstart)->format('Y-m-d\TH:i:s'),
+                        'end' => Carbon::parse($event->dtend)->format('Y-m-d\TH:i:s'),
+                        'color' => '#e63946',
+                    ];
+                }
+            } catch (\Exception $e) {
+                \Log::error('Error al cargar iCal: '.$e->getMessage());
+            }
+        }
+
+        return view('habitaciones.mostrar', compact('ambiente', 'otrosAmbientes', 'eventos'));
     }
 
     public function edit(Room $ambiente)
     {
-        return view('habitaciones.edit', compact('ambiente'));
+        $iconos = Facility::all();
+        $facilitiesSeleccionadas = $ambiente->facilities()->pluck('facility_id')->toArray();
+
+        return view('habitaciones.edit', compact('ambiente', 'iconos', 'facilitiesSeleccionadas'));
     }
 
     public function update(Request $request, Room $ambiente)
@@ -98,35 +136,31 @@ class RoomController extends Controller
             'tipo' => 'nullable|string|max:100',
             'precio' => 'nullable|numeric|min:0',
             'capacidad' => 'nullable|integer|min:1',
+            'mapa' => 'nullable',
             'descripcion' => 'nullable|string',
             'features.*.nombre' => 'required_with:features|string|max:255',
             'features.*.detalle' => 'nullable|string|max:255',
+            'facilities' => 'nullable|array',
+            'facilities.*' => 'exists:facilities,id',
+            'ical_url' => 'nullable|url|max:255',
             'imagenes.*' => 'nullable|image|mimes:jpg,jpeg,png,webp|max:4096',
         ]);
 
         // ✅ Actualizar datos principales
-        $ambiente->update($request->only(['nombre', 'tipo', 'precio', 'capacidad', 'descripcion']));
+        $ambiente->update($request->only(['nombre', 'tipo', 'precio', 'capacidad', 'descripcion', 'mapa', 'ical_url']));
 
-        if ($request->filled('features')) {
-            $ambiente->features()->delete();
-            foreach ($request->input('features') as $feature) {
-                if (! empty($feature['nombre'])) {
-                    $ambiente->features()->create($feature);
-                }
-            }
-        }
+        /* $ambiente->facilities()->sync($request->input('facilities', [])); */
+        $ambiente->facilities()->sync($request->input('facilities', []));
+
         // ✅ Manejo de imágenes
         if ($request->hasFile('imagenes')) {
-            // 1. Eliminar imágenes anteriores (físicamente y en DB)
             foreach ($ambiente->images as $imagen) {
                 $path = public_path($imagen->imagen);
                 if (file_exists($path)) {
-                    unlink($path); // elimina físicamente
+                    unlink($path);
                 }
-                $imagen->delete(); // elimina de la BD
+                $imagen->delete();
             }
-
-            // 2. Subir nuevas imágenes
             foreach ($request->file('imagenes') as $imagen) {
                 $nombreOriginal = $imagen->getClientOriginalName();
                 $imagen->move(public_path('img/galeria'), $nombreOriginal);
@@ -178,5 +212,32 @@ class RoomController extends Controller
         });
 
         return back()->with('success', '¡Tu mensaje ha sido enviado correctamente!');
+    }
+
+    public function getCalendarEvents($id)
+    {
+        $ambiente = Room::findOrFail($id);
+        $eventos = [];
+
+        if ($ambiente->ical_url) {
+            try {
+                $ical = new \ICal\ICal($ambiente->ical_url, [
+                    'defaultTimeZone' => 'America/Lima',
+                ]);
+
+                foreach ($ical->events() as $event) {
+                    $eventos[] = [
+                        'title' => $event->summary ?? 'Reserva Airbnb',
+                        'start' => Carbon::parse($event->dtstart)->toDateString(),
+                        'end' => Carbon::parse($event->dtend)->toDateString(),
+                        'color' => '#e63946',
+                    ];
+                }
+            } catch (\Exception $e) {
+                \Log::error('Error al cargar iCal: '.$e->getMessage());
+            }
+        }
+
+        return response()->json($eventos);
     }
 }

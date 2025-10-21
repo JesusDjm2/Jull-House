@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $fillable = ['nombre', 'tipo', 'precio', 'capacidad', 'descripcion'];
+    protected $fillable = ['nombre', 'tipo', 'precio', 'capacidad', 'descripcion', 'ical_url', 'mapa'];
 
     public function calendars()
     {
@@ -22,8 +22,13 @@ class Room extends Model
     {
         return $this->hasMany(Galeria::class);
     }
+
     public function features()
     {
         return $this->hasMany(RoomFeature::class);
+    }
+    public function facilities()
+    {
+        return $this->belongsToMany(Facility::class)->withTimestamps();
     }
 }

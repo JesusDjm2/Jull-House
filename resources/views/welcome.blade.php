@@ -59,14 +59,14 @@
                             @endif
                             <div class="card-body">
                                 <h5 class="card-title">{{ $ambiente->nombre }}</h5>
-                                <div class="d-flex justify-content-between mb-2">
+                                <div class="d-flex justify-content-between mb-2 mt-2">
                                     <span class="text-muted"><i class="fa fa-sm fa-user"></i> {{ $ambiente->capacidad }}
                                         personas</span>
                                     <span class="fw-bold text-success">${{ number_format($ambiente->precio, 2) }}</span>
                                 </div>
                                 <p class="card-text">{{ $ambiente->descripcion }}</p>
                                 <a href="{{ route('ambiente.ver', $ambiente) }}"
-                                    class="btn btn-primary mt-auto">Información detallada</a>
+                                    class="btn btn-secondary mt-auto">Información detallada</a>
                             </div>
                         </div>
                     </div>
